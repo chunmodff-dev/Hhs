@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Wild Bounty Showdown – PG Slot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Be+Vietnam+Pro:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold-1:#fff7b8;--gold-2:#f5b82e;--gold-3:#b37209;
+  --wood-border:#8f5228;--wood-panel:#422212;
+  --cs:clamp(46px, calc((min(100vw, 440px) - 24px)/6), 68px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none}
+html,body{width:100%;height:100%;overflow-x:hidden}
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  font-family:"Be Vietnam Pro",sans-serif;
+  background:#080301;
+  color:#ffeed4;
+  padding:0;
+}
+
+/* NỀN SA MẠC VIỄN TÂY PHÍA TRÊN & BÀN NỈ XANH SALOON RẢI BÀI TÂY + ĐẠN PHÍA DƯỚI */
+.mobile-stage{
+  position:relative;
+  width:100%;
+  max-width:430px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:
+    radial-gradient(ellipse 90% 40% at 50% 12%, rgba(247, 190, 134, 0.45) 0%, transparent 70%),
+    linear-gradient(180deg, #7c482c 0%, #4a2512 40%, #1a382c 68%, #0d1e17 100%);
+  overflow:hidden;
+  padding-bottom:12px;
+  box-shadow:0 0 50px rgba(0,0,0,0.95);
+}
+
+/* HỌA TIẾT BÀN NỈ XANH SALOON RẢI BÀI TÂY VÀ VỎ ĐẠN CHUẨN ẢNH MẪU */
+.mobile-stage::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:38%;
+  background-image:
+    /* Đạn súng lục rải rác */
+    radial-gradient(circle at 78% 88%, #c5973e 0px, #694b15 4px, transparent 6px),
+    radial-gradient(circle at 82% 85%, #d1aa4e 0px, #755519 3px, transparent 5px),
+    radial-gradient(circle at 14% 78%, #c5973e 0px, #694b15 4px, transparent 6px),
+    /* Vỏ các lá bài Poker xếp lớp trên bàn nỉ */
+    linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.3) 100%),
+    repeating-linear-gradient(60deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 15px, transparent 15px, transparent 30px);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* TOP HEADER TRANG TRÍ */
+.top-nav-bar{
+  position:relative;
+  z-index:10;
+  width:100%;
+  height:36px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:4px 14px 0;
+}
+.dropdown-trigger{
+  width:30px;
+  height:24px;
+  border-radius:4px;
+  background:#140804;
+  border:1.5px solid #572e14;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+.dropdown-trigger svg{width:12px;height:12px;fill:#d49859;}
+
+.trophy-btn{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #ffe97d, #e39909 70%, #693c00);
+  border:2px solid #fff5a8;
+  display:grid;
+  place-items:center;
+  box-shadow:0 3px 8px rgba(0,0,0,0.8), 0 0 10px rgba(245,184,46,0.6);
+  cursor:pointer;
+}
+.trophy-btn svg{width:18px;height:18px;fill:#3b1e02;}
+
+/* DÂY XÍCH SẮT TREO BIỂN GỖ */
+.chain-hangers{
+  position:relative;
+  z-index:5;
+  width:88%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 28px;
+  height:22px;
+}
+.chain{
+  width:9px;
+  height:22px;
+  border:2.5px solid #a3723a;
+  border-radius:6px;
+  background:radial-gradient(circle at 35% 30%, #4a2610, #140803);
+  box-shadow:inset 0 0 3px #000, 0 3px 4px rgba(0,0,0,0.8);
+}
+
+/* BIỂN GỖ SỐ NHÂN (x1..x1024) KHẮC NỔI CHUẨN MẪU */
+.multiplier-wood-sign{
+  position:relative;
+  z-index:6;
+  width:94%;
+  margin-top:-6px;
+  background:radial-gradient(circle at 50% 25%, #6e3516, #3d1b0a 75%, #1f0b04);
+  border:3.5px solid #b87b32;
+  border-radius:20px 20px 26px 26px;
+  padding:6px 10px 8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.9), inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(0,0,0,0.85);
+}
+.multiplier-wood-sign::before{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border:1px dashed #d99a4e;
+  border-radius:16px 16px 22px 22px;
+  opacity:0.4;
+  pointer-events:none;
+}
+.multiplier-track{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+}
+.mul-item{
+  font-family:'Rye',serif;
+  font-size:1.1rem;
+  color:#9e6a3d;
+  text-shadow:0 1.5px 2px #0f0502;
+  transition:all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space:nowrap;
+}
+.mul-item.prev{font-size:0.92rem;color:#703f1b;opacity:0.6;}
+.mul-item.next{font-size:0.92rem;color:#703f1b;opacity:0.6;}
+.mul-item.active{
+  font-size:1.95rem;
+  font-weight:900;
+  color:#fff4b8;
+  transform:scale(1.15);
+  text-shadow:
+    0 0 16px #ff9400,
+    0 3px 0 #572500,
+    0 5px 8px #000;
+  animation:glow-mul 1.2s ease-in-out infinite alternate;
+}
+
+/* KHUNG GỖ SALOON 3600 ĐƯỜNG */
+.saloon-frame{
+  position:relative;
+  z-index:5;
+  width:96%;
+  margin-top:6px;
+  padding:10px 6px 10px;
+  background:radial-gradient(circle at 50% 15%, #47210e, #1c0a03 90%);
+  border:3.5px solid #8c5222;
+  border-radius:24px;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.95),
+    inset 0 0 0 1.5px #d49859,
+    inset 0 4px 12px rgba(0,0,0,0.85);
+}
+.arch-ways-left, .arch-ways-right{
+  position:absolute;
+  top:2px;
+  font-family:'Rye',serif;
+  font-size:0.75rem;
+  color:#a16839;
+  letter-spacing:1px;
+  text-shadow:0 1px 3px #000;
+  pointer-events:none;
+}
+.arch-ways-left{left:14px;transform:rotate(-16deg);}
+.arch-ways-right{right:14px;transform:rotate(16deg);}
+
+/* GUỒNG QUAY 6 CỘT BẬC THANG [3, 4, 5, 5, 4, 3] */
+.reel-board{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  min-height:calc(var(--cs)*5 + 16px);
+  padding:4px 2px;
+  border-radius:18px;
+  background:linear-gradient(180deg, #120602 0%, #1a0803 50%, #0d0301 100%);
+  border:1px solid #572e11;
+  box-shadow:inset 0 4px 16px rgba(0,0,0,0.9);
+}
+.reel-col{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  background:rgba(12, 4, 1, 0.6);
+  padding:2px 1px;
+  border-radius:10px;
+}
+.reel-cell{
+  width:var(--cs);
+  height:var(--cs);
+  position:relative;
+  display:grid;
+  place-items:center;
+}
+.tile{
+  position:relative;
+  width:98%;
+  height:98%;
+  border-radius:8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:none;
+  border:none;
+  box-shadow:none;
+  transition:transform 0.15s, filter 0.15s;
+  overflow:visible;
+}
+.tile svg{
+  width:100%;
+  height:100%;
+  display:block;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,0.85));
+}
+
+/* KHUNG NGÔI SAO VÀNG / VIỀN VÀNG TRONG ẢNH MẪU */
+.tile.gold-frame{
+  position:relative;
+}
+.tile.gold-frame::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border:2.5px solid #ffe600;
+  border-radius:10px;
+  box-shadow:0 0 12px #ffaa00, inset 0 0 8px #ffea70;
+  pointer-events:none;
+  z-index:5;
+  animation:pulse-gold-frame 1.3s ease-in-out infinite alternate;
+}
+
+/* NÚT TÍNH NĂNG MUA CHUẨN KHỐI BẠC VIỀN KIM LOẠI */
+.buy-feature-badge{
+  position:absolute;
+  right:-6px;
+  bottom:26px;
+  background:radial-gradient(circle at 45% 25%, #633318, #301306);
+  border:3px solid #d4c29c;
+  border-radius:16px;
+  padding:5px 9px;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.75rem;
+  font-weight:900;
+  text-align:center;
+  line-height:1.2;
+  color:#fbe19e;
+  text-shadow:0 1.5px 3px #000;
+  box-shadow:0 6px 14px rgba(0,0,0,0.9), inset 0 1.5px 3px #fff;
+  cursor:pointer;
+  z-index:20;
+}
+.buy-feature-badge:active{transform:scale(0.92);}
+.buy-feature-badge span{
+  display:block;
+  font-size:0.6rem;
+  color:#ffbf36;
+  font-weight:800;
+}
+
+/* BIỂN NHỎ GỖ DƯỚI ĐÍNH MÓNG NGỰA */
+.message-saloon-banner{
+  position:relative;
+  z-index:5;
+  width:94%;
+  margin-top:6px;
+  background:radial-gradient(circle at 50% 30%, #4a220d, #240d04);
+  border:2px solid #874e20;
+  border-radius:14px;
+  padding:7px 12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.7), inset 0 1px 3px rgba(255,255,255,0.15);
+}
+.horseshoe-badge{
+  position:absolute;
+  top:-11px;
+  left:50%;
+  transform:translateX(-50%);
+  width:22px;
+  height:22px;
+  background:radial-gradient(circle at 35% 30%, #ffe585, #d99309 70%, #5e3a00);
+  border-radius:50%;
+  border:1.5px solid #fff3a8;
+  display:grid;
+  place-items:center;
+  box-shadow:0 2px 6px rgba(0,0,0,0.8);
+}
+.horseshoe-badge svg{width:13px;height:13px;fill:#381c00;}
+#status-msg{
+  font-size:0.85rem;
+  font-weight:800;
+  color:#ffe0a8;
+  text-shadow:0 1px 3px #000;
+  text-align:center;
+}
+
+/* THANH THÔNG SỐ HUD CHUẨN ẢNH MẪU */
+.hud-bar{
+  position:relative;
+  z-index:5;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:94%;
+  margin-top:8px;
+  gap:6px;
+}
+.hud-cell{
+  flex:1;
+  background:rgba(20, 8, 3, 0.88);
+  border:1.5px solid #572d12;
+  border-radius:18px;
+  padding:3px 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,0.8);
+}
+.hud-cell svg{width:18px;height:18px;fill:#d49859;}
+.hud-cell label{font-size:0.65rem;color:#a87446;font-weight:800;text-transform:uppercase;}
+.hud-cell span{font-family:'Montserrat',sans-serif;font-size:0.95rem;font-weight:900;color:#fff;}
+.pg-logo-badge{
+  width:32px;
+  height:26px;
+  background:radial-gradient(circle at 40% 30%, #854820, #361908);
+  border:1.5px solid #d49844;
+  border-radius:8px;
+  font-family:'Montserrat',sans-serif;
+  font-size:0.7rem;
+  font-weight:900;
+  display:grid;
+  place-items:center;
+  color:#ffe199;
+  box-shadow:0 2px 5px rgba(0,0,0,0.8);
+}
+
+/* CỤM NÚT ĐIỀU KHIỂN DƯỚI ĐÁY */
+.saloon-controls{
+  position:relative;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  width:100%;
+  margin-top:10px;
+}
+.ctrl-btn{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #3b190a, #140702);
+  border:2px solid #733e19;
+  display:grid;
+  place-items:center;
+  box-shadow:0 4px 8px rgba(0,0,0,0.8), inset 0 1px 2px rgba(255,255,255,0.2);
+  color:#ffce8a;
+  font-size:1.4rem;
+  font-weight:900;
+  transition:transform 0.1s;
+}
+.ctrl-btn:active:not(:disabled){transform:scale(0.92);}
+.ctrl-btn svg{width:22px;height:22px;fill:#ffce8a;}
+
+/* NÚT QUAY SPIN CHÍNH CHUẨN VIỄN TÂY HAI MŨI TÊN XOAY VÀNG */
+#btn-spin{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 25%, #82421c 0%, #3d1907 60%, #170701 100%);
+  border:4px solid #c78d38;
+  box-shadow:
+    0 0 0 3px #120501,
+    0 8px 20px rgba(0,0,0,0.9),
+    0 0 24px rgba(199, 141, 56, 0.45),
+    inset 0 2px 5px rgba(255,255,255,0.4);
+  display:grid;
+  place-items:center;
+  transition:transform 0.1s;
+}
+#btn-spin svg{
+  width:44px;
+  height:44px;
+  fill:url(#goldSpinGrad);
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+#btn-spin:active:not(:disabled){transform:scale(0.92);}
+#btn-spin.spinning svg{
+  animation:spin-arrows 0.7s linear infinite;
+}
+</style>
+</head>
+<body>
+
+<!-- BỘ BIỂU TƯỢNG VECTOR SVG CHÂN THỰC 100% NHƯ TRONG ẢNH MẪU -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldSpinGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff8d6"/>
+      <stop offset="35%" stop-color="#ffd54f"/>
+      <stop offset="75%" stop-color="#ff9800"/>
+      <stop offset="100%" stop-color="#8c4e00"/>
+    </linearGradient>
+
+    <!-- KÝ TỰ J: CHỮ XANH NỀN GỖ VIỄN TÂY CHUẨN ẢNH -->
+    <symbol id="s-j" viewBox="0 0 100 100">
+      <path d="M42 16 L74 16 L74 26 L62 26 L62 64 C62 76, 52 84, 38 84 C24 84, 18 74, 18 64 L30 64 C30 70, 33 74, 38 74 C44 74, 48 70, 48 64 L48 26 L42 26 Z" 
+            fill="#5294a6" stroke="#1d4049" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M44 19 L72 19 L72 24 L60 24 L60 64 C60 74, 50 81, 38 81 C26 81, 21 72, 21 64 L28 64 C28 69, 32 72, 38 72 C45 72, 47 68, 47 64 L47 24 L44 24 Z" 
+            fill="#7ec6db" opacity="0.6"/>
+      <!-- Đinh tán viền gỗ -->
+      <circle cx="46" cy="21" r="1.5" fill="#fff"/>
+      <circle cx="68" cy="21" r="1.5" fill="#fff"/>
+    </symbol>
+
+    <!-- KÝ TỰ Q: CHỮ XANH Ô LIU VIỀN GỖ CHUẨN ẢNH -->
+    <symbol id="s-q" viewBox="0 0 100 100">
+      <ellipse cx="50" cy="48" rx="28" ry="32" fill="#759363" stroke="#2c4021" stroke-width="5"/>
+      <ellipse cx="50" cy="48" rx="14" ry="18" fill="#1e2d17" stroke="#2c4021" stroke-width="3"/>
+      <path d="M54 62 L74 82 L65 86 L48 68 Z" fill="#759363" stroke="#2c4021" stroke-width="4"/>
+      <ellipse cx="50" cy="48" rx="24" ry="28" fill="none" stroke="#a4c78f" stroke-width="2" opacity="0.6"/>
+    </symbol>
+
+    <!-- KÝ TỰ K: CHỮ ĐỎ MẬN CHẠM KHẮC VIỀN GỖ CHUẨN ẢNH -->
+    <symbol id="s-k" viewBox="0 0 100 100">
+      <path d="M22 16 L38 16 L38 44 L62 16 L80 16 L50 48 L82 84 L64 84 L38 54 L38 84 L22 84 Z" 
+            fill="#b84747" stroke="#4a1515" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M25 19 L35 19 L35 46 L60 19 L74 19 L47 48 L76 81 L63 81 L35 52 L35 81 L25 81 Z" 
+            fill="#e87676" opacity="0.6"/>
+    </symbol>
+
+    <!-- KÝ TỰ A: CHỮ VÀNG GỖ CỔ ĐIỂN CHUẨN ẢNH -->
+    <symbol id="s-a" viewBox="0 0 100 100">
+      <path d="M40 16 L60 16 L84 84 L68 84 L61 62 L39 62 L32 84 L16 84 Z M43 50 L57 50 L50 28 Z" 
+            fill="#d1aa45" stroke="#523e0c" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M42 19 L58 19 L79 81 L68 81 L62 59 L38 59 L32 81 L21 81 Z M44 48 L56 48 L50 31 Z" 
+            fill="#f7dc88" opacity="0.6"/>
+    </symbol>
+
+    <!-- MŨ CAO BỒI HỒNG TÍM CHUẨN ẢNH -->
+    <symbol id="s-hat" viewBox="0 0 100 100">
+      <!-- Khăn quàng cổ họa tiết hoa văn đỏ dưới mũ -->
+      <path d="M24 74 Q50 92 76 74 Q50 98 24 74 Z" fill="#b02c44" stroke="#4a0d18" stroke-width="2"/>
+      <!-- Vành mũ cong đặc trưng viễn tây -->
+      <path d="M12 68 Q50 48 88 68 Q50 82 12 68 Z" fill="#9e3a6c" stroke="#47142f" stroke-width="3"/>
+      <!-- Chóp mũ lõm kiểu Stetson -->
+      <path d="M30 60 C28 32, 42 22, 50 26 C58 22, 72 32, 70 60 Z" fill="#c24886" stroke="#47142f" stroke-width="2.5"/>
+      <!-- Dây nẹp da thắt quanh chóp mũ -->
+      <path d="M30 58 Q50 63 70 58" stroke="#f0a85d" stroke-width="4.5" fill="none"/>
+      <!-- Vệt bóng sáng trên vành mũ -->
+      <path d="M20 67 Q50 56 80 67" stroke="#ff94ce" stroke-width="2" fill="none" opacity="0.6"/>
+    </symbol>
+
+    <!-- CHAI RƯỢU WHISKEY THỦY TINH & LY RƯỢU HỔ PHÁCH CHUẨN ẢNH -->
+    <symbol id="s-whisky" viewBox="0 0 100 100">
+      <!-- Ly rượu có đá cạnh chai -->
+      <path d="M10 65 L26 65 L23 85 L13 85 Z" fill="#c9712a" stroke="#4a2205" stroke-width="2"/>
+      <rect x="14" y="69" width="8" height="8" rx="2" fill="#fff" opacity="0.3"/>
+      <!-- Thân chai whiskey vuông khía nổi thủy tinh -->
+      <path d="M36 38 C36 30, 44 26, 48 26 L48 16 L58 16 L58 26 C62 26, 70 30, 70 38 L72 82 C72 86, 68 88, 64 88 L42 88 C38 88, 34 86, 34 82 Z" 
+            fill="#d17228" stroke="#4a2205" stroke-width="3"/>
+      <!-- Nhãn giấy Saloon trên thân chai -->
+      <rect x="40" y="44" width="26" height="30" rx="3" fill="#fceed1" stroke="#542e0d" stroke-width="1.8"/>
+      <line x1="44" y1="52" x2="62" y2="52" stroke="#6e3c12" stroke-width="2.2"/>
+      <line x1="47" y1="60" x2="59" y2="60" stroke="#6e3c12" stroke-width="1.6"/>
+      <!-- Nắp gỗ cổ chai bọc kim loại -->
+      <rect x="49" y="12" width="8" height="6" fill="#8c4a16" stroke="#4a2205" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- SÚNG LỤC Ổ QUAY COLT & BAO SÚNG DA ĐỰNG ĐẠN CHUẨN ẢNH -->
+    <symbol id="s-gun" viewBox="0 0 100 100">
+      <!-- Bao da đựng đạn đỏ bên dưới nòng -->
+      <path d="M42 46 C42 36, 78 42, 78 78 C78 90, 56 92, 46 80 Z" fill="#91281f" stroke="#420e09" stroke-width="2.8"/>
+      <!-- Vỏ đạn vàng cài trên bao súng -->
+      <ellipse cx="58" cy="68" rx="4" ry="7" fill="#ffd54f" stroke="#664600" stroke-width="1.2"/>
+      <ellipse cx="68" cy="62" rx="4" ry="7" fill="#ffd54f" stroke="#664600" stroke-width="1.2"/>
+      <!-- Nòng súng lục thép sáng bóng chĩa lên trên sang trái -->
+      <path d="M18 36 L62 36 L62 44 L38 44 L28 64 L18 58 Z" fill="#d7e0e5" stroke="#2a373d" stroke-width="3"/>
+      <!-- Ổ quay đạn súng lục -->
+      <rect x="45" y="32" width="18" height="20" rx="4" fill="#9aaab3" stroke="#2a373d" stroke-width="2.5"/>
+      <!-- Báng súng gỗ nâu đậm -->
+      <path d="M60 44 L74 54 L68 72 L54 58 Z" fill="#5e2612" stroke="#240c04" stroke-width="2.5"/>
+      <!-- Cò súng và vành bảo vệ kim loại -->
+      <circle cx="52" cy="42" r="3.5" fill="#ffd54f"/>
+    </symbol>
+
+    <!-- CAO BỒI MẶT NẠ ĐỎ (WILD) CHUẨN ẢNH -->
+    <symbol id="s-cowboy" viewBox="0 0 100 100">
+      <!-- Mũ cao bồi rộng vành nâu da bò -->
+      <path d="M12 40 C30 24, 70 24, 88 40 C70 48, 30 48, 12 40 Z" fill="#472314" stroke="#1f0a02" stroke-width="3"/>
+      <path d="M30 36 C32 16, 68 16, 70 36 Z" fill="#693520" stroke="#1f0a02" stroke-width="2.5"/>
+      <!-- Khuôn mặt và ánh mắt sắc bén -->
+      <rect x="34" y="38" width="32" height="20" fill="#ffd2a6"/>
+      <ellipse cx="42" cy="46" rx="4" ry="2" fill="#140804"/>
+      <ellipse cx="58" cy="46" rx="4" ry="2" fill="#140804"/>
+      <!-- Khăn trùm mặt nạ đỏ che kín mũi miệng -->
+      <path d="M28 50 L72 50 L64 88 L50 94 L36 88 Z" fill="#cc1f30" stroke="#54070f" stroke-width="3"/>
+      <path d="M36 50 Q50 64 64 50" stroke="#870a16" stroke-width="2" fill="none"/>
+      <!-- Tay giơ khẩu súng lục mạ vàng chĩa lên -->
+      <rect x="68" y="42" width="9" height="30" rx="2" fill="#b0bec5" stroke="#263238" stroke-width="2"/>
+      <circle cx="72" cy="42" r="5" fill="#f5b82e" stroke="#614102" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- THỎI VÀNG SCATTER VỚI DẢI BĂNG ĐỎ CHỮ VÀNG CHUẨN ẢNH -->
+    <symbol id="s-scatter" viewBox="0 0 100 100">
+      <!-- Hào quang sáng tỏa ra từ thỏi vàng -->
+      <circle cx="50" cy="46" r="38" fill="radial-gradient(circle, rgba(255,230,100,0.4) 0%, transparent 70%)"/>
+      <!-- Thỏi vàng tháp 3D xếp chồng tầng trên và tầng dưới -->
+      <path d="M16 64 L34 46 L66 46 L48 64 Z" fill="url(#goldSpinGrad)" stroke="#663e00" stroke-width="2"/>
+      <path d="M48 64 L66 46 L82 56 L64 74 Z" fill="#c78000" stroke="#663e00" stroke-width="2"/>
+      <path d="M28 42 L46 26 L74 26 L56 42 Z" fill="url(#goldSpinGrad)" stroke="#663e00" stroke-width="2"/>
+      <path d="M56 42 L74 26 L86 36 L68 52 Z" fill="#c78000" stroke="#663e00" stroke-width="2"/>
+      <!-- Dải băng đỏ viền vàng nổi bật phía trước -->
+      <rect x="8" y="74" width="84" height="20" rx="5" fill="#a8151f" stroke="#ffd700" stroke-width="2.5"/>
+      <text x="50" y="88" font-family="'Montserrat', sans-serif" font-size="12" font-weight="900" fill="#fff5b8" text-anchor="middle" letter-spacing="1">SCATTER</text>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="mobile-stage">
+  <!-- TOP NAV & CÚP VÀNG -->
+  <div class="top-nav-bar">
+    <div class="dropdown-trigger" title="Menu">
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </div>
+    <div class="trophy-btn" title="Thành tựu">
+      <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1c1.9-.39 3.4-1.92 3.61-3.96C19.08 11.63 21 9.55 21 7V5c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+    </div>
+  </div>
+
+  <!-- DÂY XÍCH TREO -->
+  <div class="chain-hangers">
+    <div class="chain"></div>
+    <div class="chain"></div>
+  </div>
+
+  <!-- BIỂN GỖ SỐ NHÂN (x1..x1024) -->
+  <div class="multiplier-wood-sign">
+    <div class="multiplier-track" id="mul-track"></div>
+  </div>
+
+  <!-- KHUNG GỖ SALOON 3600 ĐƯỜNG -->
+  <div class="saloon-frame" id="saloon-frame">
+    <div class="arch-ways-left">3600 ĐƯỜNG</div>
+    <div class="arch-ways-right">3600 ĐƯỜNG</div>
+
+    <div class="reel-board" id="reel-board"></div>
+
+    <!-- NÚT TÍNH NĂNG MUA VÒNG QUAY BẠC NỔI BẬT -->
+    <div class="buy-feature-badge" id="btn-buy-feature">
+      TÍNH NĂNG<br>MUA
+      <span id="buy-price-tag">đ60.00</span>
+    </div>
+  </div>
+
+  <!-- BIỂN GỖ THÔNG BÁO DƯỚI ĐÍNH MÓNG NGỰA -->
+  <div class="message-saloon-banner">
+    <div class="horseshoe-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 3.3 1.6 6.2 4 8l1.4-1.4C5.6 17.2 4.4 14.8 4.4 12c0-4.2 3.4-7.6 7.6-7.6s7.6 3.4 7.6 7.6c0 2.8-1.2 5.2-3 6.6l1.4 1.4c2.4-1.8 4-4.7 4-8 0-5.5-4.5-10-10-10zm-4 13h2v2H8v-2zm6 0h2v2h-2v-2z"/></svg>
+    </div>
+    <div id="status-msg">Nhân đôi sau mỗi lượt thắng!</div>
+  </div>
+
+  <!-- THANH HUD: AVATAR / CƯỢC / LOGO PG / THẮNG / VÍ -->
+  <div class="hud-bar">
+    <div class="hud-cell">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      <div>
+        <label>Cược</label>
+        <span id="bet-display">đ0.80</span>
+      </div>
+    </div>
+    <div class="pg-logo-badge">PG</div>
+    <div class="hud-cell">
+      <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      <div>
+        <label>Ví</label>
+        <span id="bal-display">đ10,000.00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CỤM NÚT ĐIỀU KHIỂN SALOON DƯỚI ĐÁY -->
+  <div class="saloon-controls">
+    <button class="ctrl-btn" id="btn-sound" title="Âm thanh">
+      <svg id="sound-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+    </button>
+    <button class="ctrl-btn" id="btn-minus" aria-label="Giảm cược">−</button>
+
+    <!-- NÚT SPIN CHÍNH CHUẨN VIỄN TÂY HAI MŨI TÊN XOAY VÀNG -->
+    <button id="btn-spin" aria-label="Quay thưởng">
+      <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+    </button>
+
+    <button class="ctrl-btn" id="btn-plus" aria-label="Tăng cược">+</button>
+    <button class="ctrl-btn" id="btn-auto" aria-pressed="false" title="Tự động quay">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="sub-tools">
+    <button class="pill-btn" id="btn-reset">Đặt lại đ10,000.00</button>
+  </div>
+</div>
+
+<canvas id="fx-canvas"></canvas>
+
+<!-- BIG WIN BANNER POPUP -->
+<div class="big-win-overlay" id="big-win" hidden>
+  <div class="sun-rays"></div>
+  <div class="bw-title" id="bw-title">THẮNG LỚN</div>
+  <div class="bw-amount" id="bw-amount">đ0.00</div>
+  <div class="bw-hint">Chạm màn hình để nhận ngay</div>
+</div>
+
+<!-- POPUP MUA TÍNH NĂNG VÒNG QUAY MIỄN PHÍ BẰNG XU ẢO -->
+<div class="modal-layer" id="buy-modal" hidden>
+  <div class="modal-card">
+    <h2>VÒNG QUAY MIỄN PHÍ</h2>
+    <p id="buy-modal-desc">Kích hoạt ngay 10 Vòng Quay Miễn Phí với thang nhân khởi đầu x8!</p>
+    <button class="btn-gold" id="btn-confirm-buy">MUA NGAY</button>
+    <button class="pill-btn" style="margin-top:12px;border:none;background:none;color:#aaa" id="btn-cancel-buy">Hủy</button>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   1. CẤU HÌNH TRÒ CHƠI & BẢNG BIỂU TƯỢNG
+   ========================================================================== */
+const MULTIPLIERS = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024];
+
+// [Tỷ lệ, [Hệ số 3, 4, 5, 6 cột], SVG Id]
+const SYMBOLS = [
+  [45, [0.05, 0.1, 0.25, 0.5], "s-j"],       // 0: J
+  [42, [0.05, 0.1, 0.25, 0.5], "s-q"],       // 1: Q
+  [36, [0.08, 0.15, 0.4, 0.8], "s-k"],       // 2: K
+  [30, [0.1, 0.2, 0.5, 1.2], "s-a"],         // 3: A
+  [22, [0.2, 0.4, 1.0, 2.5], "s-hat"],       // 4: Nón cao bồi
+  [16, [0.3, 0.8, 2.0, 5.0], "s-whisky"],    // 5: Rượu Whisky
+  [12, [0.5, 1.5, 4.0, 10.0], "s-gun"],      // 6: Súng lục đôi
+  [8,  [1.0, 3.0, 8.0, 20.0], "s-cowboy"],   // 7: Cao bồi (WILD)
+  [4,  [], "s-scatter"]                      // 8: SCATTER thỏi vàng
+];
+const TOTAL_WEIGHT = SYMBOLS.reduce((sum, s) => sum + s[0], 0);
+const REEL_HEIGHTS = [3, 4, 5, 5, 4, 3]; // 6 cột 3600 đường thắng
+const BET_STEPS = [0.20, 0.40, 0.80, 2.00, 5.00, 10.00, 20.00];
+const STORAGE_KEY = "pg_wild_bounty_v2";
+
+let balance = 10000.00;
+let betIdx = 2; // đ0.80
+let isBusy = false;
+let isAuto = false;
+let currentRoundWin = 0;
+let currentMulIdx = 0;
+let gridState = [];
+let goldFrameState = [];
+
+try {
+  const saved = parseFloat(localStorage.getItem(STORAGE_KEY));
+  if (!isNaN(saved) && saved >= 0) balance = saved;
+} catch (e) {}
+const saveBalance = () => {
+  try { localStorage.setItem(STORAGE_KEY, balance.toFixed(2)); } catch (e) {}
+};
+
+const $ = id => document.getElementById(id);
+const delay = ms => new Promise(r => setTimeout(r, ms));
+const formatMoney = n => "đ" + Number(n).toLocaleString("vi-VN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const getRandomSymbol = () => {
+  let rand = Math.random() * TOTAL_WEIGHT;
+  for (let i = 0; i < SYMBOLS.length; i++) {
+    rand -= SYMBOLS[i][0];
+    if (rand < 0) return i;
+  }
+  return 0;
+};
+
+/* ==========================================================================
+   2. ÂM THANH WEB AUDIO API SỐNG ĐỘNG
+   ========================================================================== */
+let audioCtx = null;
+let soundEnabled = true;
+
+function initAudio() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) audioCtx = new AudioContextClass();
+  }
+  if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+}
+
+function playTone(freq, dur, type = "sine", gain = 0.15, startTime = 0, rampFreq = null) {
+  if (!soundEnabled) return;
+  initAudio();
+  if (!audioCtx) return;
+
+  const t = audioCtx.currentTime + startTime;
+  const osc = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, t);
+  if (rampFreq) osc.frequency.exponentialRampToValueAtTime(Math.max(10, rampFreq), t + dur);
+
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(gain, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  osc.connect(g);
+  g.connect(audioCtx.destination);
+  osc.start(t);
+  osc.stop(t + dur + 0.02);
+}
+
+function playNoise(dur, f1, f2, gain = 0.15, startTime = 0) {
+  if (!soundEnabled) return;
+  initAudio();
+  if (!audioCtx) return;
+
+  const count = Math.floor(audioCtx.sampleRate * dur);
+  const buffer = audioCtx.createBuffer(1, count, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < count; i++) data[i] = Math.random() * 2 - 1;
+
+  const src = audioCtx.createBufferSource();
+  src.buffer = buffer;
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.Q.value = 2.0;
+
+  const t = audioCtx.currentTime + startTime;
+  filter.frequency.setValueAtTime(f1, t);
+  filter.frequency.exponentialRampToValueAtTime(Math.max(20, f2), t + dur);
+
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(gain, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  src.connect(filter);
+  filter.connect(g);
+  g.connect(audioCtx.destination);
+  src.start(t);
+}
+
+const WestAudio = {
+  gunshot: () => {
+    playNoise(0.22, 350, 70, 0.35);
+    playTone(150, 0.15, "sawtooth", 0.25, 0, 30);
+  },
+  ricochet: () => {
+    playTone(1700, 0.3, "sine", 0.15, 0.03, 3200);
+  },
+  cockHammer: () => {
+    playTone(900, 0.04, "triangle", 0.2, 0);
+    playTone(1150, 0.05, "triangle", 0.2, 0.07);
+  },
+  spinWind: () => {
+    playNoise(0.35, 300, 1600, 0.2);
+    playTone(120, 0.3, "sawtooth", 0.05, 0, 300);
+  },
+  woodStop: c => {
+    playTone(130 + c * 10, 0.12, "sine", 0.25, 0, 40);
+    playNoise(0.06, 800, 200, 0.18);
+  },
+  whistle: () => {
+    [1046, 1318, 1568, 2093].forEach((f, i) => playTone(f, 0.35, "sine", 0.12, i * 0.09));
+  },
+  coinPing: () => {
+    playTone(1600, 0.06, "square", 0.04);
+    playTone(2100, 0.08, "square", 0.04, 0.03);
+  }
+};
+
+/* ==========================================================================
+   3. PARTICLES HIỆU ỨNG TIA LỬA BẮN
+   ========================================================================== */
+const canvas = $("fx-canvas");
+const ctx = canvas.getContext("2d");
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+class Sparkle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    const a = Math.random() * Math.PI * 2;
+    const s = Math.random() * 7 + 2;
+    this.vx = Math.cos(a) * s;
+    this.vy = Math.sin(a) * s;
+    this.size = Math.random() * 3.5 + 2;
+    this.color = ["#fff275", "#ff8c00", "#ff3700", "#ffd700"][Math.floor(Math.random() * 4)];
+    this.life = 25 + Math.random() * 15;
+    this.maxLife = this.life;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.2;
+    this.life--;
+  }
+  draw(c) {
+    c.save();
+    c.globalAlpha = Math.max(0, this.life / this.maxLife);
+    c.fillStyle = this.color;
+    c.beginPath();
+    c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+  }
+}
+
+function spawnSparks(el) {
+  const r = el.getBoundingClientRect();
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+  for (let i = 0; i < 18; i++) particles.push(new Sparkle(cx, cy));
+}
+
+function loopFX() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].draw(ctx);
+    if (particles[i].life <= 0) particles.splice(i, 1);
+  }
+  requestAnimationFrame(loopFX);
+}
+requestAnimationFrame(loopFX);
+
+/* ==========================================================================
+   4. RENDER VÀ ĐỒNG BỘ GIAO DIỆN
+   ========================================================================== */
+function updateMultiplierSign(activeIdx) {
+  currentMulIdx = activeIdx;
+  const track = $("mul-track");
+  const visible = [];
+  
+  for (let off = -2; off <= 2; off++) {
+    const idx = activeIdx + off;
+    if (idx >= 0 && idx < MULTIPLIERS.length) {
+      visible.push({ val: MULTIPLIERS[idx], isCur: off === 0, isPrev: off < 0, isNext: off > 0 });
+    }
+  }
+
+  track.innerHTML = visible.map(item => `
+    <div class="mul-item ${item.isCur ? 'active' : (item.isPrev ? 'prev' : 'next')}">x${item.val}</div>
+  `).join("");
+}
+
+function renderBoard(fallMatrix = null) {
+  const boardEl = $("reel-board");
+  boardEl.innerHTML = gridState.map((col, c) => {
+    const cellsHtml = col.map((symIdx, r) => {
+      const dropCount = fallMatrix ? fallMatrix[c][r] : 0;
+      const isFalling = dropCount > 0;
+      const isGold = goldFrameState[c] && goldFrameState[c][r];
+      const symData = SYMBOLS[symIdx];
+
+      return `
+        <div class="reel-cell ${isFalling ? 'cell-fall' : ''}" style="--f:${dropCount}; --d:${c}">
+          <div class="tile ${isGold ? 'gold-frame' : ''}" data-pos="${c},${r}">
+            <svg><use href="#${symData[2]}"/></svg>
+          </div>
+        </div>
+      `;
+    }).join("");
+    return `<div class="reel-col">${cellsHtml}</div>`;
+  }).join("");
+}
+
+function syncHud() {
+  const currentBet = BET_STEPS[betIdx];
+  $("bal-display").textContent = formatMoney(balance);
+  $("bet-display").textContent = formatMoney(currentBet);
+  $("buy-price-tag").textContent = formatMoney(currentBet * 75);
+  $("btn-spin").disabled = isBusy;
+  $("btn-minus").disabled = isBusy || betIdx === 0;
+  $("btn-plus").disabled = isBusy || betIdx === BET_STEPS.length - 1;
+}
+
+function triggerFloatingGain(amt) {
+  const el = document.createElement("div");
+  el.className = "float-gain";
+  el.textContent = "+" + formatMoney(amt);
+  $("saloon-frame").appendChild(el);
+  setTimeout(() => el.remove(), 1200);
+}
+
+/* ==========================================================================
+   5. BIG WIN OVERLAY
+   ========================================================================== */
+const WIN_TIERS = [
+  { name: "THẮNG LỚN", minMul: 10, dur: 2200 },
+  { name: "SIÊU THẮNG", minMul: 25, dur: 3200 },
+  { name: "THẮNG SIÊU KHỦNG", minMul: 50, dur: 4500 }
+];
+
+async function handleBigWin(totalWin, bet) {
+  const ratio = totalWin / bet;
+  let tier = null;
+  for (let i = WIN_TIERS.length - 1; i >= 0; i--) {
+    if (ratio >= WIN_TIERS[i].minMul) {
+      tier = WIN_TIERS[i];
+      break;
+    }
+  }
+  if (!tier) return;
+
+  const overlay = $("big-win");
+  const titleEl = $("bw-title");
+  const amtEl = $("bw-amount");
+  let skip = false;
+
+  titleEl.textContent = tier.name;
+  amtEl.textContent = formatMoney(0);
+  overlay.hidden = false;
+  WestAudio.whistle();
+
+  overlay.onclick = () => { skip = true; };
+
+  const start = performance.now();
+  let lastCoin = 0;
+
+  while (!skip) {
+    const elapsed = performance.now() - start;
+    const p = Math.min(elapsed / tier.dur, 1);
+    const curr = totalWin * p;
+
+    amtEl.textContent = formatMoney(curr);
+    if (elapsed - lastCoin > 90) {
+      WestAudio.coinPing();
+      lastCoin = elapsed;
+    }
+
+    if (p >= 1) break;
+    await delay(35);
+  }
+
+  amtEl.textContent = formatMoney(totalWin);
+  if (!skip) await delay(1000);
+  overlay.hidden = true;
+}
+
+/* ==========================================================================
+   6. CƠ CHẾ 3600 ĐƯỜNG & KHUNG VÀNG HÓA WILD
+   ========================================================================== */
+function calculateWaysWin() {
+  let payoutMul = 0;
+  const winningPositions = new Set();
+
+  for (let s = 0; s < 8; s++) { // Trừ Scatter (8)
+    let matchCols = 0;
+    let comboWays = 1;
+
+    for (let c = 0; c < 6; c++) {
+      const matchCount = gridState[c].filter(item => item === s || item === 7).length;
+      if (matchCount === 0) break;
+      comboWays *= matchCount;
+      matchCols++;
+    }
+
+    if (matchCols >= 3) {
+      const rewardUnit = SYMBOLS[s][1][matchCols - 3];
+      payoutMul += rewardUnit * comboWays;
+      for (let c = 0; c < matchCols; c++) {
+        gridState[c].forEach((val, r) => {
+          if (val === s || val === 7) winningPositions.add(`${c},${r}`);
+        });
+      }
+    }
+  }
+
+  return { payoutMul, winningPositions };
+}
+
+function processTumbleDrop(winningPositions) {
+  const fallMatrix = [];
+  gridState = gridState.map((col, c) => {
+    const remaining = [];
+    const falls = [];
+    let removedCount = 0;
+
+    for (let r = col.length - 1; r >= 0; r--) {
+      if (winningPositions.has(`${c},${r}`)) {
+        if (goldFrameState[c] && goldFrameState[c][r]) {
+          remaining.unshift(7); // Biến thành Wild Cao Bồi!
+          falls.unshift(removedCount);
+          goldFrameState[c][r] = false;
+        } else {
+          removedCount++;
+        }
+      } else {
+        remaining.unshift(col[r]);
+        falls.unshift(removedCount);
+      }
+    }
+
+    fallMatrix[c] = [...Array(removedCount).fill(removedCount), ...falls];
+    const newSymbols = Array.from({ length: removedCount }, getRandomSymbol);
+    return [...newSymbols, ...remaining];
+  });
+
+  renderBoard(fallMatrix);
+}
+
+/* ==========================================================================
+   7. QUAY VÀ FREE SPINS
+   ========================================================================== */
+async function executeSpinRound(bet, isFreeSpin) {
+  WestAudio.spinWind();
+  $("status-msg").textContent = "Guồng đang quay...";
+  await delay(250);
+
+  gridState = REEL_HEIGHTS.map(h => Array.from({ length: h }, getRandomSymbol));
+  goldFrameState = REEL_HEIGHTS.map(h => Array.from({ length: h }, () => Math.random() < 0.15));
+
+  const initFall = REEL_HEIGHTS.map(h => Array(h).fill(h));
+  renderBoard(initFall);
+
+  for (let c = 0; c < 6; c++) {
+    await delay(60);
+    WestAudio.woodStop(c);
+  }
+
+  const scatters = gridState.flat().filter(s => s === 8).length;
+  if (scatters >= 2) WestAudio.whistle();
+
+  let mulIdx = isFreeSpin ? currentMulIdx : 0;
+  updateMultiplierSign(mulIdx);
+  let roundTotalEarned = 0;
+
+  await delay(400);
+
+  while (true) {
+    const winResult = calculateWaysWin();
+    if (winResult.payoutMul <= 0) break;
+
+    const currentMultiplier = MULTIPLIERS[mulIdx];
+    const gained = winResult.payoutMul * bet * currentMultiplier;
+
+    roundTotalEarned += gained;
+    balance += gained;
+    currentRoundWin += gained;
+    saveBalance();
+    syncHud();
+
+    $("status-msg").textContent = `Thắng: +${formatMoney(gained)} (x${currentMultiplier})!`;
+    triggerFloatingGain(gained);
+    WestAudio.gunshot();
+    WestAudio.ricochet();
+
+    winResult.winningPositions.forEach(pos => {
+      const el = document.querySelector(`.tile[data-pos="${pos}"]`);
+      if (el) {
+        el.parentElement.classList.add("hit");
+        spawnSparks(el);
+      }
+    });
+    await delay(450);
+
+    winResult.winningPositions.forEach(pos => {
+      const el = document.querySelector(`.tile[data-pos="${pos}"]`);
+      if (el) el.parentElement.classList.add("pop-out");
+    });
+    await delay(300);
+
+    processTumbleDrop(winResult.winningPositions);
+    
+    // Tăng số nhân
+    mulIdx = Math.min(mulIdx + 1, MULTIPLIERS.length - 1);
+    updateMultiplierSign(mulIdx);
+    await delay(450);
+  }
+
+  return { totalEarned: roundTotalEarned, scatterCount: scatters };
+}
+
+async function triggerFreeSpins(bet) {
+  $("status-msg").textContent = "BẮT ĐẦU 10 LƯỢT QUAY MIỄN PHÍ!";
+  WestAudio.whistle();
+  await delay(1200);
+
+  let totalSpins = 10;
+  let done = 0;
+  updateMultiplierSign(3); // Bắt đầu từ x8
+
+  while (done < totalSpins) {
+    done++;
+    $("status-msg").textContent = `Lượt quay miễn phí: ${done}/${totalSpins}`;
+    const res = await executeSpinRound(bet, true);
+    if (res.scatterCount >= 3) {
+      totalSpins += 5;
+      WestAudio.whistle();
+      $("status-msg").textContent = "Tuyệt đỉnh! Thêm +5 lượt miễn phí!";
+      await delay(700);
+    }
+    await delay(400);
+  }
+
+  updateMultiplierSign(0);
+}
+
+async function startSpin() {
+  if (isBusy) return;
+  initAudio();
+
+  const currentBet = BET_STEPS[betIdx];
+  if (balance < currentBet) {
+    isAuto = false;
+    $("btn-auto").setAttribute("aria-pressed", "false");
+    $("status-msg").textContent = "Số dư không đủ! Vui lòng giảm cược hoặc đặt lại.";
+    return;
+  }
+
+  isBusy = true;
+  balance -= currentBet;
+  currentRoundWin = 0;
+  saveBalance();
+  syncHud();
+
+  $("btn-spin").classList.add("spinning");
+  WestAudio.cockHammer();
+
+  const res = await executeSpinRound(currentBet, false);
+
+  if (res.scatterCount >= 3) {
+    await triggerFreeSpins(currentBet);
+  }
+
+  if (currentRoundWin > 0) {
+    await handleBigWin(currentRoundWin, currentBet);
+    $("status-msg").textContent = `Tổng thắng: ${formatMoney(currentRoundWin)}`;
+  } else {
+    $("status-msg").textContent = "Nhân đôi sau mỗi lượt thắng!";
+    updateMultiplierSign(0);
+  }
+
+  $("btn-spin").classList.remove("spinning");
+  isBusy = false;
+  syncHud();
+
+  if (isAuto) setTimeout(startSpin, 600);
+}
+
+/* ==========================================================================
+   8. KHỞI TẠO & SỰ KIỆN NÚT BẤM
+   ========================================================================== */
+gridState = REEL_HEIGHTS.map(h => Array.from({ length: h }, getRandomSymbol));
+goldFrameState = REEL_HEIGHTS.map(h => Array.from({ length: h }, () => false));
+renderBoard(null);
+updateMultiplierSign(0);
+syncHud();
+
+$("btn-spin").onclick = startSpin;
+
+$("btn-minus").onclick = () => {
+  if (betIdx > 0) {
+    betIdx--;
+    syncHud();
+    WestAudio.coinPing();
+  }
+};
+
+$("btn-plus").onclick = () => {
+  if (betIdx < BET_STEPS.length - 1) {
+    betIdx++;
+    syncHud();
+    WestAudio.coinPing();
+  }
+};
+
+$("btn-auto").onclick = () => {
+  isAuto = !isAuto;
+  $("btn-auto").setAttribute("aria-pressed", String(isAuto));
+  WestAudio.coinPing();
+  if (isAuto) startSpin();
+};
+
+$("btn-sound").onclick = () => {
+  soundEnabled = !soundEnabled;
+  $("sound-icon").style.opacity = soundEnabled ? "1" : "0.4";
+  if (soundEnabled) WestAudio.coinPing();
+};
+
+$("btn-reset").onclick = () => {
+  balance = 10000.00;
+  saveBalance();
+  syncHud();
+  $("status-msg").textContent = "Đã đặt lại đ10,000.00 vào tài khoản ảo.";
+  WestAudio.coinPing();
+};
+
+// TÍNH NĂNG MUA VÒNG QUAY
+$("btn-buy-feature").onclick = () => {
+  if (isBusy) return;
+  const currentBet = BET_STEPS[betIdx];
+  const price = currentBet * 75;
+  $("buy-modal-desc").textContent = `Kích hoạt ngay 10 Vòng Quay Miễn Phí với giá ${formatMoney(price)}?`;
+  $("buy-modal").hidden = false;
+  WestAudio.coinPing();
+};
+
+$("btn-cancel-buy").onclick = () => {
+  $("buy-modal").hidden = true;
+};
+
+$("btn-confirm-buy").onclick = async () => {
+  $("buy-modal").hidden = true;
+  const currentBet = BET_STEPS[betIdx];
+  const price = currentBet * 75;
+
+  if (balance < price) {
+    $("status-msg").textContent = `Cần ${formatMoney(price)} để mua tính năng này!`;
+    return;
+  }
+
+  balance -= price;
+  currentRoundWin = 0;
+  saveBalance();
+  syncHud();
+
+  isBusy = true;
+  $("btn-spin").classList.add("spinning");
+  await triggerFreeSpins(currentBet);
+  if (currentRoundWin > 0) {
+    await handleBigWin(currentRoundWin, currentBet);
+  }
+  $("btn-spin").classList.remove("spinning");
+  isBusy = false;
+  syncHud();
+};
+</script>
+</body>
+</html>
